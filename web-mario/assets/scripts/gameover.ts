@@ -5,32 +5,38 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import player from "./player";
+
 const { ccclass, property } = cc._decorator;
+// player.ts
 
 @ccclass
-export default class signup extends cc.Component {
-  @property(cc.Button)
-  enter: cc.Button = null;
+export default class NewClass extends cc.Component {
+  @property(cc.Node)
+  restartButton: cc.Node = null;
 
-  @property(cc.Button)
-  exit: cc.Button = null;
+  @property(cc.Node)
+  menuButton: cc.Node = null;
+
+  @property(player)
+  player: player = null;
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
-    this.enter.node.on("click", this.enterGame, this);
-    this.exit.node.on("click", this.exitSignup, this);
+    this.restartButton.on("click", this.onRestart, this);
+    this.menuButton.on("click", this.onMenu, this);
   }
 
   start() {}
-  exitSignup() {
-    // remove prefab
-    this.node.destroy();
+
+  onRestart() {
+    const currentScene = cc.director.getScene().name;
+    cc.director.loadScene(currentScene);
   }
 
-  enterGame() {
+  onMenu() {
     cc.director.loadScene("gameSelection");
   }
-
   // update (dt) {}
 }

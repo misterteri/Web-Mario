@@ -9,6 +9,12 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class login extends cc.Component {
+  @property(cc.EditBox)
+  email: cc.EditBox = null;
+
+  @property(cc.EditBox)
+  password: cc.EditBox = null;
+
   @property(cc.Button)
   enter: cc.Button = null;
 
@@ -29,7 +35,9 @@ export default class login extends cc.Component {
   }
 
   enterGame() {
-    cc.director.loadScene("game");
+    console.log("enterGame");
+    // go to game scene
+    cc.director.loadScene("gameSelection");
   }
 
   // update (dt) {}
